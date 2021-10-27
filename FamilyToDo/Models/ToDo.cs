@@ -14,6 +14,6 @@ namespace FamilyToDo.Models
         public string Category { get; set; }
         public DateTime DueDate { get; set; }
         public string Assignment { get; set; }
-        public DateTime CompletionDate { get; set; }
+        public DateTime? CompletionDate { get; set; }
     }
 }

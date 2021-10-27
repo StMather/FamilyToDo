@@ -12,6 +12,10 @@ namespace FamilyToDo.Models
         {
 
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Seed();
+        }
         public DbSet<ToDo>ToDo { get; set; }
 
     }

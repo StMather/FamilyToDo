@@ -18,6 +18,7 @@ namespace FamilyToDo.Controllers
         public ToDoesController(TaskContext context)
         {
             _context = context;
+            _context.Database.EnsureCreated();
         }
 
         // GET: api/ToDoes
