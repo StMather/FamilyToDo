@@ -30,7 +30,7 @@ namespace FamilyToDo
         {
 
             services.AddControllers();
-            services.AddDbContext<TaskContext>(opt => opt.UseInMemoryDatabase("Task"));////******
+            services.AddDbContext<TaskContext>(opt => opt.UseInMemoryDatabase("TasksToDo"));////******
 
             services.AddSwaggerGen(c =>
             {

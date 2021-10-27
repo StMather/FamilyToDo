@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace FamilyToDo.Models
 {
-    public class Task
+    public class ToDo
     {
-        public long TaskId { get; set; }
+        public long Id { get; set; }
         public string Title { get; set; }
         public string Discription { get; set; }
         public short Priority { get; set; }
