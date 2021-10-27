@@ -137,5 +137,22 @@ namespace FamilyToDo.Controllers
 
             return Ok(await tasks.ToArrayAsync());
         }
+        [HttpGet("nextdue/{count}")]
+        public async Task<IActionResult> GetNextDueDate([FromRoute] int count)
+        {
+            IQueryable<ToDo> tasks = _context.ToDo;
+
+            tasks = tasks.OrderBy(t => t.DueDate).Take(count);
+
+            return Ok(await tasks.ToArrayAsync());
+        }
+        [HttpGet("duedate/{date}")]
+        public async Task<IActionResult> GetByDate([FromRoute] DateTime date)
+        {
+            IQueryable<ToDo> tasks = _context.ToDo;
+            tasks = tasks.Where(t => t.DueDate.Date.Equals(date.Date));
+
+            return Ok(await tasks.ToArrayAsync());
+        }
     }
 }
