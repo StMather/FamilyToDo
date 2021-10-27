@@ -23,9 +23,13 @@ namespace FamilyToDo.Controllers
 
         // GET: api/ToDoes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ToDo>>> GetTasks()
+        public async Task<ActionResult<IEnumerable<ToDoDTO>>> GetTasks()
         {
-            return await _context.ToDo.ToListAsync();
+            IQueryable<ToDo> tasks = _context.ToDo;
+            tasks = tasks.Where(t => t.CompletionDate == null);
+
+            return await tasks.Select(x => ToDoToDTO(x)).ToListAsync();
+
         }
 
         // GET: api/ToDoes/5
@@ -154,5 +158,17 @@ namespace FamilyToDo.Controllers
 
             return Ok(await tasks.ToArrayAsync());
         }
+        private static ToDoDTO ToDoToDTO(ToDo todoItem) => new ToDoDTO
+        {
+            Id = todoItem.Id,
+            Title = todoItem.Title,
+            Discription = todoItem.Discription,
+            Priority = todoItem.Priority,
+            Category = todoItem.Category,
+            DueDate = todoItem.DueDate,
+            Assignment = todoItem.Assignment
+        };
     }
+    
 }
+

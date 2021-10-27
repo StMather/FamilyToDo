@@ -7,13 +7,12 @@ namespace FamilyToDo.Models
 {
     public class ToDoDTO
     {
-        public long TaskId { get; set; }
+        public long Id { get; set; }
         public string Title { get; set; }
         public string Discription { get; set; }
         public short Priority { get; set; }
         public string Category { get; set; }
         public DateTime DueDate { get; set; }
         public string Assignment { get; set; }
-        public DateTime CompletionDate { get; set; }
     }
 }
