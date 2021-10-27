@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using FamilyToDo.Models;
 
 namespace FamilyToDo
 {
@@ -28,6 +30,8 @@ namespace FamilyToDo
         {
 
             services.AddControllers();
+            services.AddDbContext<TaskContext>(opt => opt.UseInMemoryDatabase("Task"));////******
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FamilyToDo", Version = "v1" });
