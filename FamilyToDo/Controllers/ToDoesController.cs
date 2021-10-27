@@ -116,13 +116,23 @@ namespace FamilyToDo.Controllers
         }
 
         //Get by Priority
-        [HttpGet("priority/{priority}")]
+        [HttpGet("priority")]
         public async Task<IActionResult> GetByPriority([FromRoute] short priority)
         {
             IQueryable<ToDo> tasks = _context.ToDo;
 
-            
+            tasks = tasks.OrderBy(t => t.Priority);
 
+            return Ok(await tasks.ToArrayAsync());
+        }
+
+        // Get By Category
+        [HttpGet("category/{category}")]
+        public async Task<IActionResult> GetByCategory([FromRoute] string category)
+        {
+            IQueryable<ToDo> tasks = _context.ToDo;
+
+            tasks = tasks.Where(t => t.Category.ToLower().Equals(category.ToLower()));
 
             return Ok(await tasks.ToArrayAsync());
         }
