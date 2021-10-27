@@ -24,14 +24,14 @@ namespace FamilyToDo.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ToDo>>> GetTasks()
         {
-            return await _context.Tasks.ToListAsync();
+            return await _context.ToDo.ToListAsync();
         }
 
         // GET: api/ToDoes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ToDo>> GetToDo(long id)
         {
-            var toDo = await _context.Tasks.FindAsync(id);
+            var toDo = await _context.ToDo.FindAsync(id);
 
             if (toDo == null)
             {
@@ -44,7 +44,7 @@ namespace FamilyToDo.Controllers
         // PUT: api/ToDoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutToDo(long id, ToDo toDo)
+        public async Task<IActionResult> UpdateToDo(long id, ToDo toDo)
         {
             if (id != toDo.Id)
             {
@@ -75,9 +75,9 @@ namespace FamilyToDo.Controllers
         // POST: api/ToDoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ToDo>> PostToDo(ToDo toDo)
+        public async Task<ActionResult<ToDo>> CreateToDo(ToDo toDo)
         {
-            _context.Tasks.Add(toDo);
+            _context.ToDo.Add(toDo);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetToDo", new { id = toDo.Id }, toDo);
@@ -87,13 +87,13 @@ namespace FamilyToDo.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteToDo(long id)
         {
-            var toDo = await _context.Tasks.FindAsync(id);
+            var toDo = await _context.ToDo.FindAsync(id);
             if (toDo == null)
             {
                 return NotFound();
             }
 
-            _context.Tasks.Remove(toDo);
+            _context.ToDo.Remove(toDo);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -101,7 +101,30 @@ namespace FamilyToDo.Controllers
 
         private bool ToDoExists(long id)
         {
-            return _context.Tasks.Any(e => e.Id == id);
+            return _context.ToDo.Any(e => e.Id == id);
+        }
+
+        //Get by Assignment
+        [HttpGet("assignment/{assignment}")]
+        public async Task<IActionResult> GetByAssignment([FromRoute] string assignment)
+        {
+            IQueryable<ToDo> tasks = _context.ToDo;
+
+            tasks = tasks.Where(t => t.Assignment.ToLower().Equals(assignment.ToLower()));
+
+            return Ok(await tasks.ToArrayAsync());
+        }
+
+        //Get by Priority
+        [HttpGet("priority/{priority}")]
+        public async Task<IActionResult> GetByPriority([FromRoute] short priority)
+        {
+            IQueryable<ToDo> tasks = _context.ToDo;
+
+            
+
+
+            return Ok(await tasks.ToArrayAsync());
         }
     }
 }

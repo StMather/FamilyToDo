@@ -12,7 +12,7 @@ namespace FamilyToDo.Models
         {
 
         }
-        public DbSet<ToDo>Tasks { get; set; }
+        public DbSet<ToDo>ToDo { get; set; }
 
     }
 }
